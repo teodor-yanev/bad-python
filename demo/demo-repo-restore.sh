@@ -2,7 +2,6 @@
 
 
 PROFILE=$(pwd)/demo/black-hat-demo-profile.yaml
-INITIAL_COMMIT=f080e70fbae944f081bea541d2b34d9f79a50fc6
 
 # Check if we're logged in
 minder auth whoami || minder auth login
@@ -23,13 +22,10 @@ for repo in $repo_list; do
    minder repo delete -n $repo --provider github
 done
 
-# hard exit to not close any PRs inadvertently in other repos
-git log -1 $INITIAL_COMMIT || exit 1
-
 for pr_num in $(gh pr list --state open --limit 1000 | awk '{print $1}'); do
     gh pr close $pr_num
 done
 
 git checkout main
-git reset --hard $INITIAL_COMMIT
+git reset --hard restore
 git push origin main --force
