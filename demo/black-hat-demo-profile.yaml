@@ -29,11 +29,6 @@ repository:
       branch: main
     def:
       enforce_admins: false
-  - type: branch_protection_require_pull_request_approving_review_count
-    params:
-      branch: main
-    def:
-      required_approving_review_count: 1
 pull_request:
   - type: pr_vulnerability_check
     def:
