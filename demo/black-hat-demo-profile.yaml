@@ -22,7 +22,7 @@ repository:
 pull_request:
   - type: pr_vulnerability_check
     def:
-      action: commit_status
+      action: review
       ecosystem_config:
         - name: npm
           vulnerability_database_type: osv
