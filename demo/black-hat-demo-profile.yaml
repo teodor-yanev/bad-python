@@ -19,6 +19,21 @@ repository:
       package_ecosystem: pip
       schedule_interval: weekly
       apply_if_file: requirements.txt
+  - type: branch_protection_allow_force_pushes
+    params:
+      branch: main
+    def:
+      allow_force_pushes: true
+  - type: branch_protection_enforce_admins
+    params:
+      branch: main
+    def:
+      enforce_admins: false
+  - type: branch_protection_require_pull_request_approving_review_count
+    params:
+      branch: main
+    def:
+      required_approving_review_count: 1
 pull_request:
   - type: pr_vulnerability_check
     def:
