@@ -8,7 +8,8 @@ PY_TEST_REPO=$(gh repo view --json name,owner --jq '.owner.login + "/" + .name')
 minder auth whoami || minder auth login
 
 # register the repos
-minder repo register --repo $PY_TEST_REPO --provider=github
+# TODO: commented out to work around a bug in the event cache
+# minder repo register --repo $PY_TEST_REPO --provider=github
 
 # create the test profile
 minder profile create -f $PROFILE
