@@ -1,8 +1,6 @@
 #!/bin/bash
 
 
-PROFILE=$(pwd)/demo/black-hat-demo-profile.yaml
-
 # Check if we're logged in
 minder auth whoami || minder auth login
 

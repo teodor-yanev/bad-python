@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROFILE=$(pwd)/demo/black-hat-demo-profile.yaml
+PROFILE=$(pwd)/demo/profile.yaml
 PROFILE_NAME=black-hat-profile
 PY_TEST_REPO=$(gh repo view --json name,owner --jq '.owner.login + "/" + .name')
 
