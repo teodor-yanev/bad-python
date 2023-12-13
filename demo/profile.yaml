@@ -24,6 +24,11 @@ repository:
       branch: main
     def:
       allow_force_pushes: true
+  - type: branch_protection_require_pull_request_approving_review_count
+    params:
+      branch: main
+    def:
+      required_approving_review_count: 1
   - type: branch_protection_enforce_admins
     params:
       branch: main

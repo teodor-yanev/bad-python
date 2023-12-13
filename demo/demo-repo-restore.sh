@@ -27,6 +27,9 @@ done
 
 gh api -X DELETE /repos/{owner}/{repo}/branches/{branch}/protection
 
+# push an unsigned image to trigger failure of the artifacts
+gh workflow run docker-unsigned.yml
+
 # restore the CVE branch
 git checkout add-vulnerable-requests
 git push origin add-vulnerable-requests --force
@@ -34,3 +37,4 @@ git push origin add-vulnerable-requests --force
 git checkout main
 git reset --hard restore
 git push origin main --force
+
