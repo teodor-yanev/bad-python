@@ -16,19 +16,16 @@ done
 # to anyone reading my JQ code - I am sorry.
 # also the tr that removes quoting could probably be removed if I could get the JQ query working w/o quotes
 # TODO: commented out to work around a bug in the event cache
-#repo_list=$(minder repo list --provider github --output=json | jq '.[] | .[] |  "\(.owner)/\(.name)"' | tr '\n' ' ' | tr -d \")
-#for repo in $repo_list; do
-#   minder repo delete -n $repo --provider github
-#done
+repo_list=$(minder repo list --provider github --output=json | jq '.[] | .[] |  "\(.owner)/\(.name)"' | tr '\n' ' ' | tr -d \")
+for repo in $repo_list; do
+   minder repo delete -n $repo --provider github
+done
 
 for pr_num in $(gh pr list --state open --limit 1000 | awk '{print $1}'); do
     gh pr close $pr_num
 done
 
 gh api -X DELETE /repos/{owner}/{repo}/branches/{branch}/protection
-
-# push an unsigned image to trigger failure of the artifacts
-gh workflow run docker-unsigned.yml
 
 # restore the CVE branch
 git checkout add-vulnerable-requests
@@ -38,3 +35,8 @@ git checkout main
 git reset --hard restore
 git push origin main --force
 
+# push an unsigned image to trigger failure of the artifacts
+# this sleep is stupid. It's just meant to ensure that the workflow triggered
+# by the push to main earlier finishes before this manual workflow run
+sleep 5
+gh workflow run docker-unsigned.yml
